@@ -8,7 +8,7 @@ import click
 from slackviewer.app import app
 from slackviewer.main import configure_app
 from flask_frozen import Freezer
-
+import downloadfiles
 
 class CustomFreezer(Freezer):
 
@@ -27,9 +27,11 @@ class CustomFreezer(Freezer):
 @click.option('--no-browser', is_flag=True,
               help="If you do not want a browser to open "
                    "automatically, set this.")
+@click.option('--local', is_flag=True,
+              help="If you want external files stored on Slack downloaded, set this.")
 @click.option('--debug', is_flag=True)
-def main(archive, output_dir, no_browser, debug):
-    configure_app(app=app, archive=archive, channels=None, no_sidebar=False, no_external_references=False, debug=debug)
+def main(archive, output_dir, no_browser, local, debug):
+    configure_app(app=app, archive=archive, channels=None, no_sidebar=True, no_external_references=False, debug=debug)
     # We need relative URLs, otherwise channel refs do not work
     app.config["FREEZER_RELATIVE_URLS"] = True
     # Use a custom subclass of Freezer which allows to overwrite
@@ -49,6 +51,9 @@ def main(archive, output_dir, no_browser, debug):
         webbrowser.open("file:///{}/index.html"
                         .format(os.path.abspath(output_dir)))
 
+    if local:
+        downloadfiles.walkdirectories(output_dir+"/channel/")
 
 if __name__ == '__main__':
+    # pylint: disable=no-value-for-parameter
     main()
