@@ -33,5 +33,9 @@ you may want to take local copies of each file.
 Using the ```--local``` option, the script will parse each channel's HTML file and download any files and thumnbnails referenced on files.slack.com.  The script creates a separate version of each channel's index.html file (index_local.html) with the local references.
 
 ```bash
-./slack2html.py -z /path/to/export/zip -o /path/to/output/dir --no-browser --local
+./slack2html.py -z /path/to/export/zip -o /path/to/output/dir --no-browser --local --channels channel1,channel2
 ```
+
+## Notes
+- Channel list must be passed in with no spaces
+- The output channel directories will be overwritten for each run of the script, so specify a new output folder if you don't want to lose data.
