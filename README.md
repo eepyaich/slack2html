@@ -24,3 +24,14 @@ Point slack2html to the .zip file and let it do its magic
 ```
 
 If everything went well, your archive will have been extracted, processed, and browser window will have opened showing your *#general* channel from the export.
+
+## Storing local files
+
+By default, the exported data will still reference files held on Slack.  In some cases (for example, you are leaving Slack)
+you may want to take local copies of each file.
+
+Using the ```--local``` option, the script will parse each channel's HTML file and download any files and thumnbnails referenced on files.slack.com.  The script creates a separate version of each channel's index.html file (index_local.html) with the local references.
+
+```bash
+./slack2html.py -z /path/to/export/zip -o /path/to/output/dir --no-browser --local
+```
