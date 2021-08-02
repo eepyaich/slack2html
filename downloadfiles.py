@@ -80,6 +80,13 @@ def downloadfiles (inputname, outputname, basedir):
                 # Update the URLs in the output to reference the local file
                 line = line.replace(tmb.group("url"), str(new_url))
 
+            # Now look for references to avatar files stored on Slack
+            avatar = re.search(r"(?P<url>https?:\/\/avatars.slack-edge.com\/(?P<file>[^\s'\"]+))", line) 
+            if avatar is not None:
+                new_url = downloadfile(avatar, os.path.dirname(inputname), "avatar_files", basedir)
+                # Update the URLs in the output to reference the local file
+                line = line.replace(avatar.group("url"), str(new_url))
+
         # Write out the local version of the HTML file
         output.write(line)
 
