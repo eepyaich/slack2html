@@ -32,8 +32,10 @@ class CustomFreezer(Freezer):
                    "automatically, set this.")
 @click.option('--local', is_flag=True,
               help="If you want external files stored on Slack downloaded, set this.")
+@click.option('--sharepoint', is_flag=True,
+              help="If you want refernces to external files stored so that they will work on SharePoint, set this")
 @click.option('--debug', is_flag=True)
-def main(archive, output_dir, channels, no_browser, local, debug):
+def main(archive, output_dir, channels, no_browser, local, sharepoint, debug):
     configure_app(app=app, archive=archive, channels=channels, no_sidebar=True, no_external_references=False, debug=debug)
     # We need relative URLs, otherwise channel refs do not work
     app.config["FREEZER_RELATIVE_URLS"] = True
@@ -55,7 +57,10 @@ def main(archive, output_dir, channels, no_browser, local, debug):
                         .format(os.path.abspath(output_dir)))
 
     if local:
-        downloadfiles.walkdirectories(output_dir+"/channel/")
+        downloadfiles.walkdirectories(output_dir+"/channel/", "../", "index_local.html")
+
+    if sharepoint:
+        downloadfiles.walkdirectories(output_dir+"/channel/", "../Shared%20Documents/channel/", "index_sharepoint.html")
 
 if __name__ == '__main__':
     # pylint: disable=no-value-for-parameter

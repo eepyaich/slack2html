@@ -36,6 +36,10 @@ Using the ```--local``` option, the script will parse each channel's HTML file a
 ./slack2html.py -z /path/to/export/zip -o /path/to/output/dir --no-browser --local --channels channel1,channel2
 ```
 
+## SharePoint format
+
+If you expect to store your exported files in a SharePoint page, use the ```--sharepoint``` option to produce an HTML file which references the "Shared Documents" folder on SharePoint.  You should then put the contents of your output "channel" folder in the Shared Documents folder on your SharePoint site and create a new SharePoint page (wiki style) that includes the contents of the "index_sharepoint.html" as its content.
+
 ## Notes
 - Channel list must be passed in with no spaces
 - The output channel directories will be overwritten for each run of the script, so specify a new output folder if you don't want to lose data.
