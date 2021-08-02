@@ -25,7 +25,7 @@ class CustomFreezer(Freezer):
 @click.option("-o", "--output-dir", type=click.Path(), required=True,
               help="Output directory for HTML files")
 @click.option('--channels', type=click.STRING,
-              default="",
+              default=None,
               help="A comma separated list of channels to parse.")              
 @click.option('--no-browser', is_flag=True,
               help="If you do not want a browser to open "
